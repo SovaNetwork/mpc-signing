@@ -1,0 +1,50 @@
+@startuml frost_signing
+
+
+box SOVA Network
+  participant "SOVA reth" as reth
+  box "MPC Parties"
+    participant "MPC Dealer" as dealer
+    participant "MPC Party 1" as party1
+    participant "MPC Party 2" as party2
+    participant "MPC Party 3" as party3
+  end box
+end box
+
+reth -> dealer : "Request to sign a message"
+
+== Initial Setup ==
+dealer -> dealer : "Generate secret shares and public key"
+dealer -> party1 : "Send secret share and public key"
+dealer -> party2 : "Send secret share and public key"
+dealer -> party3 : "Send secret share and public key"
+
+== Round 1: Nonce and Commitment Generation ==
+party1 -> party1 : "Generate nonce and commitment"
+note right of party1 : "Nonce is a kept secret and used in next round"
+party1 -> dealer : "Send commitment"
+party2 -> party2 : "Generate nonce and commitment"
+party2 -> dealer : "Send commitment"
+party3 -> party3 : "Generate nonce and commitment"
+party3 -> dealer : "Send commitment"
+
+dealer -> dealer : "generate Signing package: Commitments + message"
+
+== Round 2: Generating signature shares ==
+dealer -> party1 : "Send signing package"
+party1 -> party1 : "Generate signature share"
+dealer -> party2 : "Send signing package"
+party2 -> party2 : "Generate signature share"
+dealer -> party3 : "Send signing package"
+party3 -> party3 : "Generate signature share"
+
+== R Share Aggregation ==
+party1 -> dealer : "Send signature share"
+party2 -> dealer : "Send signature share"
+party3 -> dealer : "Send signature share"
+dealer -> dealer : "Verify signature shares"
+dealer -> dealer : "Aggregate signature shares"
+
+dealer -> reth : "Send aggregated signature share"
+
+@enduml
