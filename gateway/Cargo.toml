@@ -4,3 +4,7 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
+frost-ed25519 = "2.1.0"
+serde = { workspace = true }
+tokio = { version = "1", default-features = false, features = ["macros", "sync", "time", "rt-multi-thread", "signal"] }
+anyhow = "1"
