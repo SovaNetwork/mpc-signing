@@ -1,46 +1,18 @@
-
-
-pub struct Dealer;
-//use frost_ed25519::keys::KeyPackage;
+#[warn(dead_code)]
+// dealer/src/main.rs
+use anyhow::Result;
+use dealer::Dealer;
 use rand::thread_rng;
 
+mod dealer;
 
-impl Dealer{
-    pub async fn handle_message(&self, message: &[u8]) -> Vec<u8> {
-        println!("Dealer received message: {:?}", message);
-        let parsed_message = self.parse_message(message).await;
-        let response = self.process_message(parsed_message).await;
-        response
-    }
-
-    async fn parse_message(&self, message: &[u8]) -> String {
-        println!("Parsing message: {:?}", message);
-
-        // TODO: Deserialize 
-        String::from_utf8_lossy(message).to_string()
-    }
-
-    async fn process_message(&self, message: String) -> Vec<u8> {
-        println!("Processing message: {:?}", message);
-
-        // TODO: Process the message and generate a response
-        message.into_bytes()
-    }
-
-
-}
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
     let dealer = Dealer;
 
-    // Simulate receiving a message from the gateway
-    let message = b"hello world";
-    let response = dealer.handle_message(message).await;
+    // Simulate receiving a message from the gateway via p2p (for testing purposes)
+    let message = b"hello from gateway";
 
-    println!("Dealer response: {:?}", response);
-
-
-    // Example of generating a key package
     let mut rng = thread_rng();
     let max_signers = 3;
     let min_signers = 2;
@@ -53,5 +25,6 @@ async fn main() {
     .expect("Failed to generate key package");
     println!("Key package: {:?}", pubkey_package);
     println!("Shares: {:?}", shares);
-    
+
+    Ok(())
 }
