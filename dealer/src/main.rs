@@ -11,7 +11,7 @@ async fn main() -> Result<()> {
     println!("Starting Dealer");
 
     let grpc_address = "127.0.0.1".to_string();
-    let grpc_port = 50051;
+    let grpc_port = 50052;
 
     println!("listening on {}:{}", grpc_address, grpc_port);
 
