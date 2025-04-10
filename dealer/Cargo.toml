@@ -1,0 +1,13 @@
+[package]
+name = "dealer"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+p2p = { path = "../p2p" }
+proto_api = { path = "../proto_api" }
+frost-ed25519 = "2.1.0"
+rand = "0.8"
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tonic = { workspace = true }

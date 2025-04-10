@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package mpc_gateway;
+
+service Gateway {
+  rpc Create(CreateRequest) returns (CreateReply);
+
+  rpc Sign(SignRequest) returns (SignReply);
+
+}
+
+message CreateRequest {
+  string label = 1;
+}
+
+message CreateReply {
+  string label = 1;
+}
+
+
+message SignRequest {
+  string max_signers = 1;
+  string min_signers = 2;
+  string label = 3;
+  bytes message = 4;
+}
+
+message SignReply {
+  string label = 1;
+  bytes signature = 2;
+}
+
