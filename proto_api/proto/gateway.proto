@@ -19,8 +19,10 @@ message CreateReply {
 
 
 message SignRequest {
-  string label = 1;
-  bytes data = 2;
+  string max_signers = 1;
+  string min_signers = 2;
+  string label = 3;
+  bytes message = 4;
 }
 
 message SignReply {
