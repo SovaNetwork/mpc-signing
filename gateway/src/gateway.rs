@@ -17,9 +17,12 @@ impl GatewayGrpcClient {
     }
 
     async fn connect_client(&self) -> anyhow::Result<GatewayClient<Timeout<Channel>>> {
-        let endpoint = Endpoint::from_static("https://hardcoded-endpoint.example.com")
-            .tls_config(tonic::transport::ClientTlsConfig::new())?;
-        let channel = endpoint.connect().await?;
+        let endpoint = "http://127.0.0.1:50052";
+        let channel = Endpoint::from_shared(endpoint)
+            .map_err(|e| anyhow::anyhow!("Failed to create endpoint: {}", e))?
+            .connect()
+            .await
+            .map_err(|e| anyhow::anyhow!("Failed to connect to gRPC server: {}", e))?;
         let timeout_channel = Timeout::new(channel, std::time::Duration::from_millis(5000));
         let client = GatewayClient::new(timeout_channel);
         Ok(client)
