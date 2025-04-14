@@ -71,11 +71,9 @@ impl Gateway for Dealer {
         let req = request.into_inner();
         // === Generate FROST key shares ===
         let mut rng = thread_rng();
-        let max_signers = 3;
-        let min_signers = 2;
         let (shares, pubkey_package) = frost_ed25519::keys::generate_with_dealer(
-            max_signers,
-            min_signers,
+            req.max_signers as u16,
+            req.min_signers as u16,
             frost_ed25519::keys::IdentifierList::Default,
             &mut rng,
         )
