@@ -11,9 +11,9 @@ struct Cli {
     #[clap(subcommand)]
     command: Commands,
     #[arg(long)]
-    max_signers: u8,
+    max_signers: i32,
     #[arg(long)]
-    min_signers: u8,
+    min_signers: i32,
 }
 
 #[derive(Subcommand)]
@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
                 message
             );
 
-            let message_bytes = hex::decode(message).expect("hexadecimal string");
+            let message_bytes = message.as_bytes().to_vec();
             let sig = client.sign(label.clone(), message_bytes).await?;
             println!("Signature: {:?}", hex::encode(sig));
         }
