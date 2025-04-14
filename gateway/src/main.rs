@@ -11,9 +11,9 @@ struct Cli {
     #[clap(subcommand)]
     command: Commands,
     #[arg(long)]
-    max_signers: u8,
+    max_signers: i32,
     #[arg(long)]
-    min_signers: u8,
+    min_signers: i32,
 }
 
 #[derive(Subcommand)]
