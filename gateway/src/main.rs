@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
                 message
             );
 
-            let message_bytes = hex::decode(message).expect("hexadecimal string");
+            let message_bytes = message.as_bytes().to_vec();
             let sig = client.sign(label.clone(), message_bytes).await?;
             println!("Signature: {:?}", hex::encode(sig));
         }
