@@ -1,0 +1,26 @@
+[package]
+name = "p2p"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libp2p = { version = "0.53", features = [
+    "rendezvous",
+    "async-std",
+    "dns",
+    "gossipsub",
+    "mdns",
+    "noise",
+    "macros",
+    "request-response",
+    "tcp",
+    "tokio",
+    "yamux",
+    "identify",
+    "ping",
+    "cbor",
+    "serde",
+] }
+serde = { workspace = true }
+tokio = { workspace = true }
+anyhow = { workspace = true }
