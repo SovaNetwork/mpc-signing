@@ -11,3 +11,7 @@ rand = "0.8"
 tokio = { workspace = true }
 anyhow = { workspace = true }
 tonic = { workspace = true }
+
+[[example]]
+name = "dealer"
+path = "examples/dealer.rs"
